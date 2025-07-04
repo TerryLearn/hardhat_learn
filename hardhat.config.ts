@@ -1,5 +1,5 @@
 import "@nomicfoundation/hardhat-toolbox";
-import "@nomiclabs/hardhat-ethers";
+import "@nomicfoundation/hardhat-ethers";
 
 type Config = import('hardhat/config').HardhatUserConfig;
 
