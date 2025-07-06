@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-ethers"
 
 import { ethers } from "hardhat";
 
-async function deploy() {
+async function foo() {
   // We get the contract to deploy
   const HelloWorld = await ethers.getContractFactory("HelloWorld");
   const helloWorld = await HelloWorld.deploy();
@@ -12,6 +12,11 @@ async function deploy() {
 
   console.log("HelloWorld deployed to:", await helloWorld.getAddress());
   return helloWorld
+}
+
+async function deploy() {
+  const hw  = await foo();
+  return hw
 }
 
 async function sayHello(hello:any) {
