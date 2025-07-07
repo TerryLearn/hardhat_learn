@@ -12,7 +12,8 @@ async function deploy() {
 }
 
 async function count(counter: any) {
-  console.log("Counter value:", await counter.increment());
+  await counter.increment();
+  console.log("Counter value:", await counter.getCounter());
 }
 
 deploy().then(count);
