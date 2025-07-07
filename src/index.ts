@@ -30,6 +30,7 @@ async function getContract() {
   //1 合约地址
   //2 合约ABI
   //3 provider
+  //4 signer
 
   if (!(await hasSigner()) && !(await requestAccess())) {
     throw new Error("no others ethsnums found.");
@@ -37,10 +38,32 @@ async function getContract() {
   const provider = new ethers.BrowserProvider(getEth());
   const contract = new ethers.Contract(
     process.env.CONTRACT_ADDRESS,
-    ["function Hello() public pure returns (string)"],
+    [
+      "function increment() public",
+      "function getCounter() public view returns (uint256)",
+    ],
     provider
   );
-  document.body.innerHTML = await contract.Hello();
+  // document.body.innerHTML = await contract.Hello();
+
+  const counter = document.createElement("div");
+  async function getCounter() {
+    counter.innerHTML = await contract.getCounter();
+  }
+  getCounter();
+  async function setCount() {
+    await contract.increment();
+  }
+
+  const button = document.createElement("button");
+  button.innerHTML = "Increment Counter";
+  button.onclick = async () => {
+    await setCount();
+    getCounter();
+  };
+
+  document.body.appendChild(counter);
+  document.body.appendChild(button);
 }
 
 async function main() {
