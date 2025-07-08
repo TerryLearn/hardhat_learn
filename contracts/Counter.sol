@@ -23,9 +23,13 @@ ReadOnly 只读方法
  */
 contract Counter {
     uint256 public counter;
+
+    event CounterInc(uint256 counter);
+
     function increment() public {
         counter++;
         console.log("Counter incremented to: %s", counter);
+        emit CounterInc(counter);
     }
 
     function getCounter() public view returns (uint256) {
