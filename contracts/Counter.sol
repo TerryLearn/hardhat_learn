@@ -29,6 +29,7 @@ contract Counter {
     }
 
     function getCounter() public view returns (uint256) {
+        console.log("Counter value is: %s", counter);
         return counter;
     }
 }

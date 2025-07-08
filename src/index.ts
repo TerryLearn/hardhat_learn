@@ -42,23 +42,25 @@ async function getContract() {
       "function increment() public",
       "function getCounter() public view returns (uint256)",
     ],
-    provider
+    await provider.getSigner()
   );
   // document.body.innerHTML = await contract.Hello();
 
   const counter = document.createElement("div");
   async function getCounter() {
+    console.log("getCounter", contract);
     counter.innerHTML = await contract.getCounter();
   }
   getCounter();
   async function setCount() {
-    await contract.increment();
+    return await contract.increment();
   }
 
   const button = document.createElement("button");
   button.innerHTML = "Increment Counter";
   button.onclick = async () => {
-    await setCount();
+    const tx = await setCount(); //transaction提交不是transaction完成
+    await tx.wait(); // 等待交易被打包
     getCounter();
   };
 
